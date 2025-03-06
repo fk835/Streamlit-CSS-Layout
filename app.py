@@ -17,7 +17,11 @@ body {
     margin: 0;
     padding: 0;
 }
-
+.block-container {
+    padding: 0 !important;
+    margin-top: 35px;
+}
+            
 /* Style the header */
 #header {
     background-color: #fcf3fb; /* Pink background */
@@ -60,16 +64,39 @@ div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:nth-of-type(1
     padding: 0;
     background-color: #f1fbfe;
 }
-/*second horizontal block that contains sidebar & content*/
+
+/*all horizontal blocks*/
 div[data-testid="stHorizontalBlock"] {
     gap: 0;
     margin-top: 15px;
 }
-div[data-testid="stVerticalBlock"] {
+
+/*all vertical blocks*/            
+div[data-testid="stVerticalBlock"]  {
     gap: 0;
+            
+}            
+
+/*footer*/
+div[data-testid="stHorizontalBlock"]:nth-of-type(2) {
+    background-color: #ffffbd; 
+    margin: 0;
+    border: 2px solid #ccc;           
+    border-top: none;
 }
 
-
+/*footber checkbox columns*/            
+div[data-testid="stHorizontalBlock"]:nth-of-type(2) > div[data-testid="stColumn"] {
+    background-color: #ffffbd; 
+    border: none;
+    padding: 15px;
+              
+}
+/*footber checkbox */             
+div[data-testid="stHorizontalBlock"]:nth-of-type(2) > div[data-testid="stColumn"] .stCheckbox {
+    justify-content: center;
+}   
+       
 </style>
 """, unsafe_allow_html=True)
 
@@ -139,28 +166,39 @@ with content:
                 """)
     st.dataframe(pd.DataFrame(np.random.randint(0,100,size=(100, 4)), columns=list('ABCD')))
     
+
 # footer
-with footer:   
-    st.markdown("""
-                <div id="footer">
-                    <div style="display: flex; justify-content: space-around;">
-                        <div>
-                            <input type="checkbox" id="scales" name="scales" checked />
-                            <label for="scales">Checkbox 1</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="scales" name="scales" checked />
-                            <label for="scales">Checkbox 2</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="scales" name="scales" checked />
-                            <label for="scales">Checkbox 3</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="scales" name="scales" checked />
-                            <label for="scales">Checkbox 4</label>
-                        </div>
-                    </div>
-                </div>
-                """, unsafe_allow_html=True)
+with footer:
+    st.markdown('<div class="footer">', unsafe_allow_html=True)
+    footer_columns = st.columns(4)
+    for i, col in enumerate(footer_columns):
+        with footer_columns[i]:
+            st.checkbox(label=f"Checkbox {i+1}")
+    st.markdown("</div>", unsafe_allow_html=True)
+
+
+# footer
+# with footer:   
+#     st.markdown("""
+#                 <div id="footer">
+#                     <div style="display: flex; justify-content: space-around;">
+#                         <div>
+#                             <input type="checkbox" id="scales" name="scales" checked />
+#                             <label for="scales">Checkbox 1</label>
+#                         </div>
+#                         <div>
+#                             <input type="checkbox" id="scales" name="scales" checked />
+#                             <label for="scales">Checkbox 2</label>
+#                         </div>
+#                         <div>
+#                             <input type="checkbox" id="scales" name="scales" checked />
+#                             <label for="scales">Checkbox 3</label>
+#                         </div>
+#                         <div>
+#                             <input type="checkbox" id="scales" name="scales" checked />
+#                             <label for="scales">Checkbox 4</label>
+#                         </div>
+#                     </div>
+#                 </div>
+#                 """, unsafe_allow_html=True)
 
